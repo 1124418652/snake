@@ -12,7 +12,9 @@ typedef struct snake
 int score=0, add=10;
 int status=D;
 int endgamestatus;
-snake *tail, *head, *p, *food_n;
+int SLEEPTIME = 300;
+snake *tail, *head, *p, *food_n, *q;
+char name[50];
 
 void Pos(int, int);
 void CreateMap(void);
@@ -22,3 +24,6 @@ bool BiteSelf();
 void HittheWall();
 void SnakeMove();
 void Endgame();
+void Pause();
+void StartGame();
+void GameCircle();
