@@ -90,6 +90,7 @@ void CreateFood()
 	Pos(food_n->x, food_n->y);
 	printf("¡ö");
 	free(food);
+	free(p);
 }
 
 bool BiteSelf()
@@ -121,6 +122,7 @@ void HittheWall()
 void SnakeMove()
 {
 	snake *nexthead = (snake *)malloc(sizeof(snake));
+	p = (snake *)malloc(sizeof(snake));
 	HittheWall();
 	switch(status)
 	{
@@ -130,29 +132,30 @@ void SnakeMove()
 		nexthead->y = (head->y)-1;
 		nexthead->next = head;
 		head = nexthead;
-		if(nexthead->x==food_n->x && nexthead->y==food_n->y)   //if the next square is food
+		p = head;
+		if(p->x==food_n->x && p->y==food_n->y)   //if the next square is food
 		{
-			while(nexthead!=NULL)
+			while(p!=NULL)
 			{
-				Pos(nexthead->x, nexthead->y);
+				Pos(p->x, p->y);
 				printf("¡ö");
-				nexthead = nexthead->next;
+				p = p->next;
 			}
 			score += add;
 			CreateFood();
-			free(nexthead);
+			free(p);
 		}else
 		{
-			while(nexthead->next!=NULL)
+			while(p->next->next!=NULL)
 			{
-				Pos(nexthead->x, nexthead->y);
+				Pos(p->x, p->y);
 				printf("¡ö");
-				nexthead = nexthead->next;
+				p = p->next;
 			}
-			Pos(nexthead->x, nexthead->y);
+			Pos(p->next->x, p->next->y);
 			printf(" ");
-			nexthead = NULL;
-			free(nexthead);
+			p->next = NULL;
+			free(p->next);
 		}
 		}
 	case D:
@@ -161,64 +164,63 @@ void SnakeMove()
 		nexthead->y = (head->y)+1;
 		nexthead->next = head;
 		head = nexthead;
-		if(nexthead->x==food_n->x && nexthead->y==food_n->y)   //if the next square is food
+		p = head;
+		if(p->x==food_n->x && p->y==food_n->y)   //if the next square is food
 		{
-			Pos(60,29);
-			printf("%d,%d",food_n->x,food_n->y);
-			while(nexthead!=NULL)
+			while(p!=NULL)
 			{
-				Pos(nexthead->x, nexthead->y);
+				Pos(p->x, p->y);
 				printf("¡ö");
-				nexthead = nexthead->next;
+				p = p->next;
 			}
 			score += add;
 			CreateFood();
-			free(nexthead);
+			free(p);
 		}else
 		{
-			while(nexthead->next!=NULL)
+			while(p->next->next!=NULL)
 			{
-				Pos(nexthead->x, nexthead->y);
+				Pos(p->x, p->y);
 				printf("¡ö");
-				nexthead = nexthead->next;
+				p = p->next;
 			}
-			Pos(nexthead->x, nexthead->y);
+			p = p->next;
+			Pos(p->x, p->y);
 			printf("  ");
-			nexthead = NULL;
-			free(nexthead);
+			p = NULL;
+			free(p);
 		}
 		}
 	case L:
 		{
-		nexthead->x = head->x-2;
+		nexthead->x = (head->x)-2;
 		nexthead->y = head->y;
 		nexthead->next = head;
 		head = nexthead;
-		if(nexthead->x==food_n->x && nexthead->y==food_n->y)   //if the next square is food
+		p = head;
+		if(p->x==food_n->x && p->y==food_n->y)   //if the next square is food
 		{
-			Pos(60,29);
-			printf("%d,%d",food_n->x,food_n->y);
-			while(nexthead!=NULL)
+			while(p!=NULL)
 			{
-				Pos(nexthead->x, nexthead->y);
+				Pos(p->x, p->y);
 				printf("¡ö");
-				nexthead = nexthead->next;
+				p = p->next;
 			}
 			score += add;
 			CreateFood();
-			free(nexthead);
+			free(p);
 		}else
 		{
-			while(nexthead->next!=NULL)
+			while(p->next!=NULL)
 			{
-				Pos(nexthead->x, nexthead->y);
+				Pos(p->x, p->y);
 				printf("¡ö");
-				nexthead = nexthead->next;
+				p = p->next;
 			}
-			Pos(nexthead->x, nexthead->y);
+			Pos(p->x, p->y);
 			printf("  ");
-			nexthead = NULL;
-			free(nexthead);
+			p = NULL;
+			free(p);
 		}
 		}
 	}
@@ -235,8 +237,8 @@ void main()
 	InitSnake();
 	
 	CreateFood();
-//	SnakeMove();
-//	SnakeMove();
+	SnakeMove();
+	SnakeMove();
 	
 	Pos(60,29);
 	printf("%d,%d",food_n->x,food_n->y);
