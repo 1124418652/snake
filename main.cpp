@@ -283,7 +283,7 @@ void SnakeMove()//蛇前进,上U,下D,左L,右R
 void Endgame()
 {
 	system("cls");
-	Pos(24, 12);
+	Pos(13, 12);
 	if(endgamestatus==1) printf("对不起，您撞到墙了。游戏结束");
 	else if(endgamestatus==2) printf("对不起，您咬到自己了。游戏结束");
 	else if(endgamestatus==3) printf("游戏结束");
@@ -316,6 +316,7 @@ void StartGame()
 	printf("用↑.↓.←.→分别控制蛇的移动， F1 为加速，2 为减速\n");
 	Pos(20, 11);
 	printf("加速能获得更高的分数\n");
+
 	Pos(58, 26);
 	system("pause");
 	system("cls");
