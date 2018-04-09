@@ -70,7 +70,7 @@ void CreateFood()
 	snake *p = (snake *)malloc(sizeof(snake));
 	srand((unsigned)time(NULL));
 	food->x = rand()%52+2;          //the food should not be created out of the space
-	while(food->x%2!=0)             //The abscissa of food is even
+	while((food->x)%2!=0)             //The abscissa of food is even
 		food->x = rand()%52+2;
 	food->y = rand()%24+1;
 
@@ -271,6 +271,8 @@ void SnakeMove()//蛇前进,上U,下D,左L,右R
 		break;
     }
 	}
+	Pos(60, 24);
+
     if(BiteSelf()==true)   
     {
         endgamestatus=2;
@@ -286,7 +288,9 @@ void Endgame()
 	else if(endgamestatus==2) printf("对不起，您咬到自己了。游戏结束");
 	else if(endgamestatus==3) printf("游戏结束");
 	Pos(24, 13);
-	printf("您的得分是: %d\n", score);
+	printf("%s,您的得分是: %d\n", name, score);
+	system("pause");
+	exit(0);
 }
 
 void Pause()
@@ -355,12 +359,12 @@ void GameCircle()
 		else if(GetAsyncKeyState(VK_F1))
 		{
 			add += 2;
-			SLEEPTIME - 30;
+			SLEEPTIME -= 30;
 		}
 		else if(GetAsyncKeyState(VK_F2))
 		{
 			add -= 2;
-			SLEEPTIME + 30;
+			SLEEPTIME += 30;
 		}
 		SnakeMove();
 		Sleep(SLEEPTIME);
@@ -370,6 +374,11 @@ void GameCircle()
 void main()
 {
 	StartGame();
+	//CreateMap();
+	//InitSnake();
+	//system("pause");
+
 	GameCircle();
+	Endgame();
 	system("pause");
 }
